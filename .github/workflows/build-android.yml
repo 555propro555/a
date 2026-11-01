@@ -18,12 +18,14 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Install .NET MAUI Workload
-      run: dotnet workload install maui
+    - name: Install .NET MAUI Workloads
+      run: |
+        dotnet workload install maui
+        dotnet workload install android
 
     - name: Publish Android APK (Release)
       run: |
-        dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=false
+        dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=false --no-self-contained
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
